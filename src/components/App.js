@@ -26,14 +26,42 @@ const data = {
     'Adventures of Shaktiman'
   ]
 }
+const options = [];
+
+for(const elem of Object.keys(data)){
+  options.push(Number(elem));
+}
+
 const App = () => {
 
+  const[selectVal,setSelectVal] = useState("");
+
+  const yearData = (e) => {
+    setSelectVal(e.target.value);
+  }
   return (
     <div id="main">
-      
+         <select onChange={yearData}>
+         <option value={null} defaultValue></option>
+            {
+              options.map((opt,index) => (
+                <option key={index}>{opt}</option>
+              ))
+            }
+            </select>
+            <div id ="selected-year">{selectVal==="" ? "No year selected" :`Selected year-${selectVal}`}</div>
+            <ul>
+                {
+                  selectVal && data[selectVal].map((el,index) => (
+                    <li key={index}>{el}</li>
+                  ))
+                }
+            </ul>
     </div>
   )
 }
+
+
 
 
 export default App;
